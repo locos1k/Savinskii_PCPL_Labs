@@ -2,9 +2,13 @@ import telebot
 from telebot import types
 import random
 
-TOKEN = "8540127884:AAFPVgs8B25AMIlTgvRWdUP0Bdc_0Y4hEXg"
-bot = telebot.TeleBot(TOKEN)
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
+
+TOKEN = os.getenv("BOT_TOKEN")
+bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start'])
 def start(message):
@@ -22,7 +26,6 @@ def start(message):
         "Привет! Я RandomGameBot. Выбери действие 👇",
         reply_markup=markup
     )
-
 
 @bot.message_handler(func=lambda m: True)
 def handle_message(message):
@@ -48,6 +51,5 @@ def handle_message(message):
 
     else:
         bot.send_message(message.chat.id, "Такой команды не найдено. Выберите действие по кнопке ниже")
-
 
 bot.infinity_polling()
