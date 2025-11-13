@@ -15,7 +15,7 @@ def print_info(figures):
     rows = []
     for f in figures:
         rows.append([f.name(), repr(f)])
-    print("\nТаблица (tabulate):")
+    print("\nТаблица:")
     print(tabulate(rows, headers=["Фигура", "__repr__"], tablefmt="github"))
 
 def main():
@@ -23,7 +23,7 @@ def main():
         try:
             N = int(sys.argv[1])
         except ValueError:
-            print("Первый аргумент должен быть целым числом. Пример: python main.py 7")
+            print("Первый аргумент должен быть целым числом.")
             return
     else:
         N = 21
