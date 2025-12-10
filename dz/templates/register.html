@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+<div class="chat-wrapper">
+    <h1>Выбор ника</h1>
+
+    <p class="small-text">
+        Выберите ник, под которым будете писать в чат.
+    </p>
+
+    <form method="post" class="send-form">
+        <input type="text"
+               name="username"
+               placeholder="Ваш ник"
+               value="{{ username or '' }}"
+               required>
+        {% if error %}
+            <p style="color: red; font-size: 14px;">{{ error }}</p>
+        {% endif %}
+        <button type="submit" class="btn-primary">Писать в чате</button>
+    </form>
+
+    {% if username %}
+        <p class="small-text">
+            Текущий ник: <strong>{{ username }}</strong>
+        </p>
+    {% endif %}
+</div>
+{% endblock %}

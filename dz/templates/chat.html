@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Мини-чат{% endblock %}
+
+{% block content %}
+<div class="chat-wrapper">
+
+    <div class="top-bar">
+        <h1>Мини-чат</h1>
+        <div class="small-text">
+            Вы вошли как <strong>{{ username }}</strong><br>
+            <a href="{{ url_for('stats') }}">Статистика</a> ·
+            <a href="{{ url_for('register') }}">Сменить ник</a> ·
+            <a href="{{ url_for('clear') }}">Очистить чат</a><br>
+            Сообщений: {{ messages|length }}
+        </div>
+    </div>
+
+    <div id="messages-box" class="messages-box">
+        {% if messages %}
+            {% for msg in messages %}
+                <div class="message">
+                    <div class="message-meta">
+                        <strong>{{ msg.author }}</strong> в {{ msg.time }}
+                    </div>
+                    <p class="message-text">{{ msg.text }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Пока нет сообщений. Напишите что-нибудь первым!</p>
+        {% endif %}
+    </div>
+
+    <form method="post" class="send-form" id="chat-form">
+        <textarea name="text" rows="2" placeholder="Ваше сообщение" required></textarea>
+        <button type="submit" class="btn-primary">Отправить</button>
+    </form>
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("chat-form");
+        const textarea = form.querySelector('textarea[name="text"]');
+        const box = document.getElementById("messages-box");
+
+        if (box) {
+            box.scrollTop = box.scrollHeight;
+        }
+
+        if (textarea && form) {
+            textarea.addEventListener("keydown", function (event) {
+                if (event.key === "Enter" && !event.shiftKey) {
+                    event.preventDefault();
+                    form.submit();
+                }
+            });
+        }
+    });
+</script>
+
+{% endblock %}

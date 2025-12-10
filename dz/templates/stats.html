@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Статистика сообщений{% endblock %}
+
+{% block content %}
+<div class="chat-wrapper">
+    <div class="top-bar">
+        <h1>Статистика</h1>
+        <div class="small-text">
+            <a href="{{ url_for('chat') }}">← Вернуться в чат</a><br>
+            Всего сообщений в базе: {{ total_messages }}
+        </div>
+    </div>
+
+    {% if current_user %}
+        <p><strong>Вы:</strong> {{ current_user }}</p>
+    {% endif %}
+
+    {% if stats %}
+        <table style="width:100%; border-collapse: collapse; font-size: 14px;">
+            <thead>
+                <tr>
+                    <th style="text-align:left; border-bottom:1px solid #ddd; padding:4px;">Ник</th>
+                    <th style="text-align:right; border-bottom:1px solid #ddd; padding:4px;">Сообщений</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for author, count in stats %}
+                <tr {% if author == current_user %}style="background:#eef;"{% endif %}>
+                    <td style="padding:4px;">{{ author }}</td>
+                    <td style="padding:4px; text-align:right;">{{ count }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Пока нет сообщений, статистику показать нельзя.</p>
+    {% endif %}
+</div>
+{% endblock %}
