@@ -58,7 +58,6 @@
         }
 
         setInterval(function () {
-            // Если пользователь сейчас что-то печатает — не перезагружать
             if (document.activeElement === textarea && textarea && textarea.value.trim() !== "") {
                 return;
             }

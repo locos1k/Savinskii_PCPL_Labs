@@ -19,7 +19,7 @@ class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     author = db.Column(db.String(50), nullable=False, default="Аноним")
     text = db.Column(db.Text, nullable=False)
-    time = db.Column(db.String(5), nullable=False)       # строка вида "HH:MM"
+    time = db.Column(db.String(5), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
@@ -133,5 +133,4 @@ def clear():
 
 
 if __name__ == "__main__":
-    # host="0.0.0.0" если хочешь заходить с телефона/других устройств
     app.run(debug=True)
